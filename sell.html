@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Good Loop - Sell Your Items</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0fff0; /* Light green theme */
+            color: #000; /* Black text */
+            margin: 0;
+            padding: 0;
+            padding-bottom: 60px; /* Extra padding for scrolling */
+        }
+        header {
+            background-color: #90ee90; /* Light green */
+            padding: 20px;
+            text-align: center;
+        }
+        header img {
+            width: 150px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        nav {
+            background-color: #add8e6; /* Light blue */
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff; /* White */
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+        form label {
+            display: block;
+            margin-top: 10px;
+        }
+        form input, form textarea, form select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            background-color: #ffffe0; /* Light yellow */
+        }
+        form button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #add8e6; /* Light blue */
+            border: none;
+            cursor: pointer;
+            color: #000;
+        }
+        footer {
+            background-color: #90ee90; /* Light green */
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://i.imgur.com/peOy2Lx.jpeg" alt="Good Loop Logo">
+        <h1>Good Loop - Sell Your Items</h1>
+        <p>List your second-hand goods for sale.</p>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="sell.html">Sell Your Items</a>
+        <a href="pricing.html">Pricing Standards</a>
+    </nav>
+    <main>
+        <h2>Sell Your Items with Good Loop</h2>
+        <p>Fill out the form below to list your item. For items needing evaluation (e.g., books), we'll assess after receiving it.</p>
+        <form action="https://formspree.io/f/your-form-id" method="POST"> <!-- Replace with your Formspree or Google Form action -->
+            <label for="seller-name">Name:</label>
+            <input type="text" id="seller-name" name="seller-name" required>
+
+            <label for="seller-class">Class/Grade:</label>
+            <input type="text" id="seller-class" name="seller-class" required>
+
+            <label for="item-name">Item Name:</label>
+            <input type="text" id="item-name" name="item-name" required>
+
+            <label for="tags">Tags (comma-separated, e.g., second-hand book, grade 10, math):</label>
+            <input type="text" id="tags" name="tags" required>
+
+            <label for="description">Basic Description:</label>
+            <textarea id="description" name="description" required></textarea>
+
+            <label for="image">Item Image URL:</label>
+            <input type="url" id="image" name="image" required>
+
+            <label for="payment-info">Payment Info (e.g., Bank Account):</label>
+            <input type="text" id="payment-info" name="payment-info" required>
+
+            <label for="dropoff">Drop-off Location:</label>
+            <select id="dropoff" name="dropoff" required>
+                <option value="Library">Library</option>
+                <option value="Neville Front Desk">Neville Front Desk</option>
+            </select>
+
+            <p><strong>Notes:</strong> Check your Teams messages for updates. Attach a "Good Loop" sticky note to your item and drop it at the front desk. We'll handle the rest and transfer funds minus 10% fee.</p>
+            <p>For pricing questions, contact Yuhan Yang, Avni Hedge, or Aries Luo via Teams. You can reclaim your item within a week.</p>
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+    <footer>
+        <p>Contact: Yuhan Yang, Avni Hedge, Aries Luo via Teams | All profits to charity</p>
+    </footer>
+</body>
+</html>
