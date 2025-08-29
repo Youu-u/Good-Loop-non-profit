@@ -4,28 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Good Loop - Second-Hand Goods Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8f0; /* Light green theme */
-            color: #333;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0fff0; /* Light green theme */
+            color: #000; /* Black text */
             margin: 0;
             padding: 0;
+            padding-bottom: 60px; /* Extra padding for scrolling */
         }
         header {
             background-color: #90ee90; /* Light green */
             padding: 20px;
             text-align: center;
         }
+        header img {
+            width: 150px;
+            height: auto;
+            margin-bottom: 10px;
+        }
         nav {
-            background-color: #98fb98;
+            background-color: #add8e6; /* Light blue */
             padding: 10px;
             text-align: center;
         }
         nav a {
             margin: 0 15px;
             text-decoration: none;
-            color: #333;
+            color: #000;
             font-weight: bold;
         }
         main {
@@ -39,7 +46,7 @@
             gap: 20px;
         }
         .product-card {
-            background-color: white;
+            background-color: #fff; /* White */
             border: 1px solid #ddd;
             padding: 15px;
             text-align: center;
@@ -54,19 +61,19 @@
         .filter-section input, .filter-section select {
             margin-right: 10px;
             padding: 5px;
+            background-color: #ffffe0; /* Light yellow */
         }
         footer {
-            background-color: #90ee90;
+            background-color: #90ee90; /* Light green */
             padding: 10px;
             text-align: center;
-            position: fixed;
             width: 100%;
-            bottom: 0;
+            /* Removed position: fixed; to allow scrolling */
         }
         form {
             max-width: 600px;
             margin: 0 auto;
-            background-color: white;
+            background-color: #fff; /* White */
             padding: 20px;
             border: 1px solid #ddd;
         }
@@ -78,13 +85,15 @@
             width: 100%;
             padding: 8px;
             margin-top: 5px;
+            background-color: #ffffe0; /* Light yellow */
         }
         form button {
             margin-top: 20px;
             padding: 10px;
-            background-color: #90ee90;
+            background-color: #add8e6; /* Light blue */
             border: none;
             cursor: pointer;
+            color: #000;
         }
         table {
             width: 100%;
@@ -98,6 +107,13 @@
         }
         th {
             background-color: #f2f2f2;
+        }
+        #product-details {
+            max-width: 600px;
+            margin: 0 auto 20px;
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
         }
     </style>
     <script>
@@ -135,7 +151,7 @@
                         <h3>${product.name}</h3>
                         <p>Condition: ${product.condition}</p>
                         <p>Price: $${product.price.toFixed(2)}</p>
-                        <button onclick="viewProduct(${product.id})">View Details</button>
+                        <button onclick="viewProduct(${product.id})">View Details & Buy</button>
                     `;
                     grid.appendChild(card);
                 });
@@ -145,10 +161,17 @@
         function viewProduct(id) {
             const product = products.find(p => p.id === id);
             if (product) {
-                // For simplicity, use alert for details; in real, redirect to detail page
-                alert(`Product: ${product.name}\nCondition: ${product.condition}\nPrice: $${product.price}\nTags: ${product.tags.join(', ')}\n\nAfter purchase, pick up in 1-2 days at Neville Front Desk or Library with your name sticker. Contact Yuhan Yang, Avni Hedge, or Aries Luo via Teams for questions.`);
-                // Redirect to buy form or simulate
-                window.location.href = '#buy-form'; // Scroll to buy form section
+                const detailsDiv = document.getElementById('product-details');
+                detailsDiv.innerHTML = `
+                    <h3>${product.name}</h3>
+                    <img src="${product.image}" alt="${product.name}" style="max-width:100%;">
+                    <p>Condition: ${product.condition}</p>
+                    <p>Price: $${product.price.toFixed(2)}</p>
+                    <p>Tags: ${product.tags.join(', ')}</p>
+                    <p>After purchase, pick up in 1-2 days at Neville Front Desk or Library with your name sticker. Contact Yuhan Yang, Avni Hedge, or Aries Luo via Teams for questions.</p>
+                `;
+                document.getElementById('product-input').value = `${product.name} (ID: ${product.id})`;
+                document.getElementById('buy-form-section').scrollIntoView();
             }
         }
 
@@ -169,7 +192,7 @@
                     <h3>${product.name}</h3>
                     <p>Condition: ${product.condition}</p>
                     <p>Price: $${product.price.toFixed(2)}</p>
-                    <button onclick="viewProduct(${product.id})">View Details</button>
+                    <button onclick="viewProduct(${product.id})">View Details & Buy</button>
                 `;
                 grid.appendChild(card);
             });
@@ -180,6 +203,7 @@
 </head>
 <body>
     <header>
+        <img src="https://i.imgur.com/peOy2Lx.jpeg" alt="Good Loop Logo">
         <h1>Good Loop - Eco-Friendly Second-Hand Marketplace</h1>
         <p>Buy and sell second-hand books and items within our Melbourne private girls' school. We handle communication and delivery for a 10% fee, with all profits donated to charity. Low-carbon, fast in-school pickup.</p>
     </header>
@@ -213,8 +237,9 @@
             <div id="product-grid" class="product-grid"></div>
         </section>
 
-        <section id="buy-form">
+        <section id="buy-form-section">
             <h2>Purchase Form</h2>
+            <div id="product-details"></div>
             <form action="https://formspree.io/f/your-form-id" method="POST"> <!-- Replace with your Formspree or Google Form action for free email notifications -->
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
@@ -222,8 +247,8 @@
                 <label for="class">Class/Grade:</label>
                 <input type="text" id="class" name="class" required>
 
-                <label for="product">Product ID/Name:</label>
-                <input type="text" id="product" name="product" required>
+                <label for="product-input">Product:</label>
+                <input type="text" id="product-input" name="product" required readonly> <!-- Pre-filled and read-only -->
 
                 <label for="pickup">Pickup Location:</label>
                 <select id="pickup" name="pickup" required>
