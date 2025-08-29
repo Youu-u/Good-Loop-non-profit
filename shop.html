@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Good Loop - Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0fff0; /* Light green theme */
+            color: #000; /* Black text */
+            margin: 0;
+            padding: 0;
+            padding-bottom: 60px; /* Extra padding for scrolling */
+        }
+        header {
+            background-color: #90ee90; /* Light green */
+            padding: 20px;
+            text-align: center;
+        }
+        header img {
+            width: 150px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        nav {
+            background-color: #add8e6; /* Light blue */
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            background-color: #fff; /* White */
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+        }
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+        }
+        .filter-section {
+            margin-bottom: 20px;
+        }
+        .filter-section input, .filter-section select {
+            margin-right: 10px;
+            padding: 5px;
+            background-color: #ffffe0; /* Light yellow */
+        }
+        footer {
+            background-color: #90ee90; /* Light green */
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff; /* White */
+            padding: 20px;
+            border: 1px solid #ddd;
+            display: none; /* Hidden by default */
+        }
+        form label {
+            display: block;
+            margin-top: 10px;
+        }
+        form input, form textarea, form select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            background-color: #ffffe0; /* Light yellow */
+        }
+        form button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #add8e6; /* Light blue */
+            border: none;
+            cursor: pointer;
+            color: #000;
+        }
+        #product-details {
+            max-width: 600px;
+            margin: 0 auto 20px;
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            display: none; /* Hidden by default */
+        }
+    </style>
+    <script>
+        // Sample product data (admins can edit this array to add/remove products)
+        const products = [
+            // Example products - admins add more here via code editing
+            {
+                id: 1,
+                name: "Math Textbook - Grade 10",
+                price: 25.00,
+                condition: "Good",
+                image: "https://via.placeholder.com/200?text=Math+Textbook", // Replace with actual image URL
+                tags: ["second-hand book", "grade 10", "math"]
+            },
+            {
+                id: 2,
+                name: "Novel: Harry Potter",
+                price: 10.00,
+                condition: "Almost Like New",
+                image: "https://via.placeholder.com/200?text=Harry+Potter", // Replace with actual image URL
+                tags: ["second-hand book", "novel", "leisure"]
+            }
+            // Add more products as {id: unique number, name: string, price: number, condition: string, image: url, tags: array}
+        ];
+
+        function loadProducts() {
+            const grid = document.getElementById('product-grid');
+            if (grid) {
+                grid.innerHTML = '';
+                products.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>Condition: ${product.condition}</p>
+                        <p>Price: $${product.price.toFixed(2)}</p>
+                        <button onclick="viewProduct(${product.id})">View Details & Buy</button>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+        }
+
+        function viewProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                const detailsDiv = document.getElementById('product-details');
+                detailsDiv.innerHTML = `
+                    <h3>${product.name}</h3>
+                    <img src="${product.image}" alt="${product.name}" style="max-width:100%;">
+                    <p>Condition: ${product.condition}</p>
+                    <p>Price: $${product.price.toFixed(2)}</p>
+                    <p>Tags: ${product.tags.join(', ')}</p>
+                    <p>After purchase, pick up in 1-2 days at Neville Front Desk or Library with your name sticker. Contact Yuhan Yang, Avni Hedge, or Aries Luo via Teams for questions.</p>
+                `;
+                detailsDiv.style.display = 'block';
+                document.getElementById('product-input').value = `${product.name} (ID: ${product.id})`;
+                document.getElementById('buy-form').style.display = 'block';
+                detailsDiv.scrollIntoView();
+            }
+        }
+
+        function filterProducts() {
+            const search = document.getElementById('search').value.toLowerCase();
+            const tag = document.getElementById('tag-filter').value.toLowerCase();
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(search) && 
+                (tag === '' || p.tags.some(t => t.toLowerCase().includes(tag)))
+            );
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>Condition: ${product.condition}</p>
+                    <p>Price: $${product.price.toFixed(2)}</p>
+                    <button onclick="viewProduct(${product.id})">View Details & Buy</button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        window.onload = loadProducts;
+    </script>
+</head>
+<body>
+    <header>
+        <img src="https://i.imgur.com/peOy2Lx.jpeg" alt="Good Loop Logo">
+        <h1>Good Loop - Shop</h1>
+        <p>Browse our selection of second-hand items.</p>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="sell.html">Sell Your Items</a>
+        <a href="pricing.html">Pricing Standards</a>
+    </nav>
+    <main>
+        <h2>Shop</h2>
+        <div class="filter-section">
+            <input type="text" id="search" placeholder="Search by keywords..." oninput="filterProducts()">
+            <select id="tag-filter" onchange="filterProducts()">
+                <option value="">All Tags</option>
+                <option value="second-hand book">Second-Hand Book</option>
+                <option value="second-hand item">Second-Hand Item</option>
+                <option value="toy">Toy</option>
+                <option value="jewelry">Jewelry</option>
+                <option value="students' products">Students' Products</option>
+                <option value="stationary">Stationary</option>
+                <option value="handmade products">Handmade Products</option>
+                <option value="secondhand clothes">Secondhand Clothes</option>
+                <!-- Add even more as needed -->
+            </select>
+        </div>
+        <div id="product-grid" class="product-grid"></div>
+
+        <div id="product-details"></div>
+        <form id="buy-form" action="https://formspree.io/f/your-form-id" method="POST"> <!-- Replace with your Formspree or Google Form action for free email notifications -->
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="class">Class/Grade:</label>
+            <input type="text" id="class" name="class" required>
+
+            <label for="product-input">Product:</label>
+            <input type="text" id="product-input" name="product" required readonly> <!-- Pre-filled and read-only -->
+
+            <label for="pickup">Pickup Location:</label>
+            <select id="pickup" name="pickup" required>
+                <option value="Neville Front Desk">Neville Front Desk</option>
+                <option value="Library">Library</option>
+            </select>
+
+            <p>After submission, you'll be redirected to a payment link. We confirm payment and deliver in 1-2 days.</p>
+            <button type="submit">Submit Order</button>
+        </form>
+        <p>Payment: Use this sample PayPal link after submission: <a href="https://paypal.me/youraccount/amount">Pay Now</a> (Admins replace with dynamic link)</p>
+    </main>
+    <footer>
+        <p>Contact: Yuhan Yang, Avni Hedge, Aries Luo via Teams | All profits to charity</p>
+    </footer>
+</body>
+</html>
