@@ -232,11 +232,6 @@
 
         <div id="product-details"></div>
         <form id="buy-form" action="https://docs.google.com/forms/d/e/1FAIpQLSf.../viewform" method="POST"> <!-- Replace with your Google Form URL -->
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-
-            <label for="class">Class/Grade:</label>
-            <input type="text" id="class" name="class" required>
 
             <label for="product-input">Product:</label>
             <input type="text" id="product-input" name="product" required readonly> <!-- Pre-filled and read-only -->
@@ -244,12 +239,18 @@
             <label for="order-number-input">Order Number:</label>
             <input type="text" id="order-number-input" name="order_number" required readonly> <!-- Pre-filled with random order number -->
 
-            <label for="pickup">Pickup Location:</label>
-            <select id="pickup" name="pickup" required>
-                <option value="Neville Front Desk">Neville Front Desk</option>
-                <option value="Library">Library</option>
-            </select>
+            <div class="shop-instructions">
+            <p>🛍️ <strong>To shop this item:</strong></p>
+            <p>Copy the <strong>product name</strong> and <strong>order number</strong>, then click <a href="https://forms.office.com/r/NrrnspAjDP" target="_blank">here</a> to fill out your purchase form.</p>
+            
+            </div>
 
+             <h3>Fill out the form below to sell your item</h3>
+             <p>Click <a href="https://forms.office.com/r/NrrnspAjDP" target="_blank">here</a> to access the form.</p> 
+             <p><strong>Notes:</strong> Check your Teams messages for updates. Attach a sticky note that says "Good Loop" & your name + grade to your item and drop it at the reception you selected. We'll handle the rest and transfer funds minus a 10% fee.</p>
+             <p>For pricing questions, contact Yuhan Yang, Avni Hedge, or Aries Luo via Teams. You can reclaim your item within a week.</p>
+
+            
             <p>After submission, you will be redirected to a confirmation page with payment details. We confirm payment and deliver in 1-2 days. (Please include your Order Number in the payment reference for us to confirm the payment.)</p>
             <button type="submit">Submit Order</button>
         </form>
